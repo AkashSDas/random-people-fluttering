@@ -25,17 +25,17 @@ class User {
 
   // semi-colon, to assign final fields before the body
   // is executed
-  User.fromJson(Map<String, dynamic> json, int index)
-      : firstName = "${json[index]['name']['first']}",
-        lastName = "${json[index]['name']['last']}",
-        email = "${json[index]['email']}",
-        age = json[index]['dob']['age'],
-        phoneNum = "${json[index]['phone']}",
-        city = "${json[index]['location']['city']}",
-        state = "${json[index]['location']['state']}",
-        country = "${json[index]['location']['country']}",
-        userLargeImg = "${json[index]['picture']['large']}",
-        userThumbnail = "${json[index]['picture']['thumbnail']}";
+  User.fromJson(Map<String, dynamic> json)
+      : firstName = "${json['name']['first']}",
+        lastName = "${json['name']['last']}",
+        email = "${json['email']}",
+        age = json['dob']['age'],
+        phoneNum = "${json['phone']}",
+        city = "${json['location']['city']}",
+        state = "${json['location']['state']}",
+        country = "${json['location']['country']}",
+        userLargeImg = "${json['picture']['large']}",
+        userThumbnail = "${json['picture']['thumbnail']}";
 
   String getFullname() {
     return '${this.firstName} ${this.lastName}';
