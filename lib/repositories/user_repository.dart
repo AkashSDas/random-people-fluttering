@@ -12,8 +12,8 @@ class UserRepository {
     var response = await _dio.get(
       'https://randomuser.me/api/?results=$numOfUser',
     );
-    response.data['results'].map((data, index) {
-      users.add(User.fromJson(data, index));
+    response.data['results'].map((data) {
+      users.add(User.fromJson(data));
     }).toList();
 
     return users;
