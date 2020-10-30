@@ -1,12 +1,20 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
-import 'package:http/http.dart' as http;
+import 'package:random_people_fluttering/repositories/repositories.dart';
 
 import './screens.dart';
 import '../constant.dart';
+import '../models/models.dart';
 import '../shared/widgets/loader.dart';
+
+class HomeController {
+  final UserRepository _userRepository = UserRepository();
+
+  // Getting all users data in form of list
+  Future<List<User>> fetchUserData() {
+    return _userRepository.getUser();
+  }
+}
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -14,29 +22,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final String url = 'https://randomuser.me/api/?results=20';
-  bool isLoading = true;
-  List userData;
-
-  // Getting the user data from api
-  Future<void> getData() async {
-    var response = await http.get(
-      Uri.encodeFull(url),
-      headers: {'Accept': 'application/json'},
-    );
-
-    List data = jsonDecode(response.body)['results'];
-    setState(() {
-      userData = data;
-      isLoading = false;
-    });
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    getData();
-  }
+  final HomeController _homeController = HomeController();
 
   // AppBar
   Widget _buildAppBar() {
@@ -117,60 +103,55 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Widget _buildUserListView() {
     return Container(
-      child: isLoading
-          ? Loader()
-          : ListView.builder(
-              scrollDirection: Axis.vertical,
-              shrinkWrap: true,
-              physics: NeverScrollableScrollPhysics(),
-              itemCount: userData == null ? 0 : userData.length,
-              itemBuilder: (context, index) {
-                String userThumbnail = userData[index]['picture']['thumbnail'];
-                String firstName = "${userData[index]['name']['first']}";
-                String lastName = "${userData[index]['name']['last']}";
-                String username = "$firstName $lastName";
-                String city = "${userData[index]['location']['city']}";
-                String state = "${userData[index]['location']['state']}";
-                String country = "${userData[index]['location']['country']}";
-                String location = "$city, $state, $country";
-                String userLargeImg = "${userData[index]['picture']['large']}";
-                String email = "${userData[index]['email']}";
-                int age = userData[index]['dob']['age'];
-                String phoneNum = "${userData[index]['phone']}";
+      child: FutureBuilder<List<User>>(
+        future: _homeController.fetchUserData(),
+        builder: (context, snapshot) {
+          List<User> users = snapshot.data;
 
-                return GestureDetector(
-                  onTap: () {
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => DetailScreen(
-                          id: index,
-                          username: username,
-                          userImg: userLargeImg,
-                          location: location,
-                          email: email,
-                          age: age,
-                          phoneNum: phoneNum,
-                        ),
-                      ),
-                    );
-                  },
-                  child: Container(
-                    decoration: BoxDecoration(boxShadow: [shadow]),
-                    child: Card(
-                      color: Theme.of(context).accentColor,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          _buildUserThumbnail(userThumbnail, index),
-                          _buildUserInfo(username, country),
-                        ],
-                      ),
+          if (users == null) {
+            return Loader();
+          }
+
+          return ListView.builder(
+            scrollDirection: Axis.vertical,
+            shrinkWrap: true,
+            physics: NeverScrollableScrollPhysics(),
+            itemCount: users.length,
+            itemBuilder: (context, index) => GestureDetector(
+              onTap: () {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => DetailScreen(
+                      id: index,
+                      username: users[index].getFullname(),
+                      userImg: users[index].userLargeImg,
+                      location: users[index].getLocation(),
+                      email: users[index].email,
+                      age: users[index].age,
+                      phoneNum: users[index].phoneNum,
                     ),
                   ),
                 );
               },
+              child: Container(
+                decoration: BoxDecoration(boxShadow: [shadow]),
+                child: Card(
+                  color: Theme.of(context).accentColor,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      _buildUserThumbnail(users[index].userThumbnail, index),
+                      _buildUserInfo(
+                          users[index].getFullname(), users[index].country),
+                    ],
+                  ),
+                ),
+              ),
             ),
+          );
+        },
+      ),
     );
   }
 
