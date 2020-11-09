@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
+import 'package:provider/provider.dart';
 import 'package:random_people_fluttering/repositories/repositories.dart';
+import 'package:random_people_fluttering/theme.dart';
 
 import './screens.dart';
 import '../constant.dart';
@@ -26,11 +28,35 @@ class _HomeScreenState extends State<HomeScreen> {
 
   // AppBar
   Widget _buildAppBar() {
+    final _themeChanger = Provider.of<ThemeChanger>(context);
+
+    Icon themeIcon = Icon(
+      WeatherIcons.wi_day_sunny,
+      size: space * 3,
+    );
+    if (_themeChanger.getThemeMode() == 'light') {
+      themeIcon = Icon(
+        FontAwesome.moon_o,
+        size: space * 3,
+      );
+    } else if (_themeChanger.getThemeMode() == 'dark') {
+      themeIcon = Icon(
+        WeatherIcons.wi_day_sunny,
+        size: space * 3,
+      );
+    }
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Icon(MaterialCommunityIcons.menu, size: space * 3),
-        Icon(WeatherIcons.wi_day_sunny, size: space * 3),
+        IconButton(
+          onPressed: () {
+            _themeChanger.toggleTheme();
+          },
+          icon: themeIcon,
+          iconSize: space,
+        ),
       ],
     );
   }
@@ -157,23 +183,26 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: ListView(
-        padding: EdgeInsets.symmetric(
-          horizontal: space * 2,
-          vertical: space * 2,
-        ),
-        children: [
-          _buildAppBar(),
-          SizedBox(height: space),
-          _buildAppInfo(),
-          Divider(
-            height: space * 8,
-            color: Theme.of(context).accentColor,
-            thickness: 4,
+    return Scaffold(
+      backgroundColor: Theme.of(context).primaryColor,
+      body: SafeArea(
+        child: ListView(
+          padding: EdgeInsets.symmetric(
+            horizontal: space * 2,
+            vertical: space * 2,
           ),
-          _buildUserListView(),
-        ],
+          children: [
+            _buildAppBar(),
+            SizedBox(height: space),
+            _buildAppInfo(),
+            Divider(
+              height: space * 8,
+              color: Theme.of(context).accentColor,
+              thickness: 4,
+            ),
+            _buildUserListView(),
+          ],
+        ),
       ),
     );
   }
