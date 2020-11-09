@@ -35,7 +35,6 @@ class MaterialAppWithTheme extends StatelessWidget {
 
     return MaterialApp(
       title: 'Random People Fluttering',
-      // home: HomeScreen(),
       debugShowCheckedModeBanner: false,
 
       // Route
