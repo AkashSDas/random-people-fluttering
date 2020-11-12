@@ -3,7 +3,7 @@ import 'package:flutter_icons/flutter_icons.dart';
 
 import '../constant.dart';
 
-class DetailScreen extends StatelessWidget {
+class DetailScreen extends StatefulWidget {
   final int id;
   final String username;
   final String userImg;
@@ -23,7 +23,22 @@ class DetailScreen extends StatelessWidget {
     this.phoneNum,
   }) : super(key: key);
 
-  // AppBar
+  @override
+  _DetailScreenState createState() => _DetailScreenState();
+}
+
+class _DetailScreenState extends State<DetailScreen> {
+  Color _starIconColor = Colors.white;
+  double _starIconSize = space * 3;
+
+  updateStarIconState() {
+    setState(() {
+      _starIconColor =
+          _starIconColor == Colors.yellow ? Colors.white : Colors.yellow;
+      _starIconSize = space * 4 == _starIconSize ? space * 3 : space * 4;
+    });
+  }
+
   Widget _buildAppBar(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -38,27 +53,32 @@ class DetailScreen extends StatelessWidget {
             Navigator.popAndPushNamed(context, '/');
           },
         ),
-        IconButton(
-          icon: Icon(
-            FontAwesome.star,
-            size: space * 3,
-            color: Colors.yellow,
+        AnimatedContainer(
+          duration: Duration(seconds: 2),
+          curve: Curves.bounceInOut,
+          child: IconButton(
+            icon: Icon(
+              FontAwesome.star,
+              size: _starIconSize,
+              color: _starIconColor,
+            ),
+            onPressed: () {
+              updateStarIconState();
+            },
           ),
-          onPressed: () => print('Star btn clicked'),
         ),
       ],
     );
   }
 
-  // User Hero Img
   Widget _buildUserImg(BuildContext context) {
     return Stack(
       children: [
         Hero(
-          tag: 'user_img${this.id}',
+          tag: 'user_img${this.widget.id}',
           child: Container(
             child: Image(
-              image: NetworkImage(this.userImg),
+              image: NetworkImage(this.widget.userImg),
               height: space * 40,
               width: space * 40,
               fit: BoxFit.cover,
@@ -142,28 +162,28 @@ class DetailScreen extends StatelessWidget {
           _buildIndividualInfo(
             FontAwesome.address_card,
             cyan,
-            this.location,
+            this.widget.location,
             context,
           ),
           _buildDivider(context),
           _buildIndividualInfo(
             FontAwesome.envelope,
             orange,
-            this.email,
+            this.widget.email,
             context,
           ),
           _buildDivider(context),
           _buildIndividualInfo(
             FontAwesome.birthday_cake,
             pink,
-            '${this.age.toString()} years old',
+            '${this.widget.age.toString()} years old',
             context,
           ),
           _buildDivider(context),
           _buildIndividualInfo(
             FontAwesome.phone,
             green,
-            this.phoneNum,
+            this.widget.phoneNum,
             context,
           ),
         ],
@@ -178,7 +198,7 @@ class DetailScreen extends StatelessWidget {
       body: ListView(
         children: [
           _buildUserImg(context),
-          _buildUsername(this.username, context),
+          _buildUsername(this.widget.username, context),
           _buildUserInfo(context),
         ],
       ),
