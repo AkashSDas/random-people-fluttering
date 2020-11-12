@@ -23,8 +23,20 @@ class HomeScreen extends StatefulWidget {
   _HomeScreenState createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeScreenState extends State<HomeScreen>
+    with SingleTickerProviderStateMixin {
   final HomeController _homeController = HomeController();
+  AnimationController _fadeController;
+
+  @override
+  void initState() {
+    super.initState();
+    _fadeController = AnimationController(
+      vsync: this,
+      duration: Duration(seconds: 2),
+    );
+    _fadeController.forward();
+  }
 
   // AppBar
   Widget _buildAppBar() {
@@ -63,19 +75,22 @@ class _HomeScreenState extends State<HomeScreen> {
 
   // App info
   Widget _buildAppInfo() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        SizedBox(height: space * 2),
-        Text('Random', style: Theme.of(context).textTheme.headline1),
-        Text('People', style: Theme.of(context).textTheme.headline1),
-        Text('Fluttering', style: Theme.of(context).textTheme.headline1),
-        SizedBox(height: space * 2),
-        Text(
-          'Random user api used for generating random user data',
-          style: Theme.of(context).textTheme.bodyText1,
-        ),
-      ],
+    return FadeTransition(
+      opacity: _fadeController.drive(CurveTween(curve: Curves.easeOut)),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(height: space * 2),
+          Text('Random', style: Theme.of(context).textTheme.headline1),
+          Text('People', style: Theme.of(context).textTheme.headline1),
+          Text('Fluttering', style: Theme.of(context).textTheme.headline1),
+          SizedBox(height: space * 2),
+          Text(
+            'Random user api used for generating random user data',
+            style: Theme.of(context).textTheme.bodyText1,
+          ),
+        ],
+      ),
     );
   }
 
