@@ -8,14 +8,9 @@ final pink = Color(0xFFFF00E5);
 final green = Color(0xFF14FF00);
 
 final shadow = BoxShadow(
-  color: Colors.black,
-  blurRadius: 20.0,
-);
-
-final innerShadow = BoxShadow(
-  color: Colors.black,
-  blurRadius: 40.0,
-  offset: Offset(-10, -10),
+  color: Colors.black12,
+  blurRadius: 32.0,
+  offset: Offset(0.0125, 0.0125),
 );
 
 final lightThemeData = ThemeData(
