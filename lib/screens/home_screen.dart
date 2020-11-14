@@ -143,7 +143,7 @@ class _HomeScreenState extends State<HomeScreen>
   }
 
   Widget _buildUserListView() {
-    return Container(
+    return Expanded(
       child: FutureBuilder<List<User>>(
         future: _homeController.fetchUserData(),
         builder: (context, snapshot) {
@@ -155,8 +155,7 @@ class _HomeScreenState extends State<HomeScreen>
 
           return ListView.builder(
             scrollDirection: Axis.vertical,
-            shrinkWrap: true,
-            physics: NeverScrollableScrollPhysics(),
+            physics: BouncingScrollPhysics(),
             itemCount: users.length,
             itemBuilder: (context, index) => GestureDetector(
               onTap: () {
@@ -198,25 +197,30 @@ class _HomeScreenState extends State<HomeScreen>
 
   @override
   Widget build(BuildContext context) {
+    final Size size = MediaQuery.of(context).size;
+
     return Scaffold(
       backgroundColor: Theme.of(context).primaryColor,
       body: SafeArea(
-        child: ListView(
+        child: Container(
+          height: size.height,
           padding: EdgeInsets.symmetric(
             horizontal: space * 2,
             vertical: space * 2,
           ),
-          children: [
-            _buildAppBar(),
-            SizedBox(height: space),
-            _buildAppInfo(),
-            Divider(
-              height: space * 8,
-              color: Theme.of(context).accentColor,
-              thickness: 4,
-            ),
-            _buildUserListView(),
-          ],
+          child: Column(
+            children: [
+              _buildAppBar(),
+              SizedBox(height: space),
+              _buildAppInfo(),
+              Divider(
+                height: space * 8,
+                color: Theme.of(context).accentColor,
+                thickness: 4,
+              ),
+              _buildUserListView(),
+            ],
+          ),
         ),
       ),
     );
