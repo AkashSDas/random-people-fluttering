@@ -3,6 +3,8 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:random_people_fluttering/theme.dart';
 
+import 'screens/screens.dart';
+
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
