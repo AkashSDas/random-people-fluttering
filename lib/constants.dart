@@ -64,7 +64,7 @@ TextTheme createTextTheme({
     );
 
 /// Green theme
-final greenTheme = ThemeData(
+final greenThemeData = ThemeData(
   iconTheme: IconThemeData(color: black1),
   primaryColor: green1,
   accentColor: green3,
@@ -81,7 +81,7 @@ final greenTheme = ThemeData(
 );
 
 /// Purple theme
-final purpleTheme = ThemeData(
+final purpleThemeData = ThemeData(
   iconTheme: IconThemeData(color: Color(0xFFDBE1E8)),
   primaryColor: purple1,
   accentColor: purple2,
