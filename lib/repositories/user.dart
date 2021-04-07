@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 
 import '../models/models.dart';
 
+/// Handles things related to fetching `User` model related data
 class UserRepository {
   final Dio _dio = Dio();
 
@@ -10,8 +11,9 @@ class UserRepository {
     List<User> users = [];
 
     try {
-      Response response =
-          await _dio.get('https://randomuser.me/api/?results=$numOfUser');
+      Response response = await _dio.get(
+        'https://randomuser.me/api/?results=$numOfUser',
+      );
       response.data['results'].map((data) {
         users.add(User.fromJson(data));
       }).toList();

@@ -20,22 +20,17 @@ class MaterialAppWithTheme extends StatelessWidget {
   Widget build(BuildContext context) {
     final _themeChanger = Provider.of<ThemeChanger>(context);
 
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      statusBarColor: Colors.black,
-      statusBarBrightness: Brightness.light,
-    ));
-
-    // if (_themeChanger.getThemeMode() == 'green') {
-    //   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-    //     statusBarColor: Colors.white,
-    //     statusBarBrightness: Brightness.dark,
-    //   ));
-    // } else {
-    //   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-    //     statusBarColor: Colors.black,
-    //     statusBarBrightness: Brightness.light,
-    //   ));
-    // }
+    if (_themeChanger.getThemeMode() == 'green') {
+      SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+        statusBarColor: Colors.black,
+        statusBarBrightness: Brightness.light,
+      ));
+    } else {
+      SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+        statusBarColor: Colors.white,
+        statusBarBrightness: Brightness.dark,
+      ));
+    }
 
     return MaterialApp(
       title: 'Random People Fluttering',
