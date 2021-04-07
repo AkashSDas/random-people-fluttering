@@ -32,7 +32,7 @@ flutter run
 
 ## Figma designs
 
-The `designs` for this app and output art design were made using `Figma` and the `.fig` files are in [design/ dir](./design).
+The `designs` for this app and output art design were made using `Figma` and the `.fig` files are in [/docs/design/ dir](https://github.com/AkashSDas/random-people-fluttering/tree/main/docs/design).
 
 ## App images
 
