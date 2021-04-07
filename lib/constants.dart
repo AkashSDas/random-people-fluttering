@@ -27,15 +27,16 @@ TextTheme createTextTheme({
   Color headline1Color,
   Color headline2Color,
   Color headline3Color,
+  Color headline4Color,
   Color bodyText1Color,
   Color bodyText2Color,
 }) =>
     TextTheme(
       headline1: TextStyle(
-        fontSize: 40,
+        fontSize: 32,
         color: headline1Color,
         fontFamily: 'Prompt',
-        fontWeight: FontWeight.w600,
+        fontWeight: FontWeight.w700,
       ),
       headline2: TextStyle(
         fontSize: 22,
@@ -44,19 +45,25 @@ TextTheme createTextTheme({
         fontWeight: FontWeight.w700,
       ),
       headline3: TextStyle(
-        fontSize: 20,
+        fontSize: 26,
         color: headline3Color,
         fontFamily: 'Prompt',
         fontWeight: FontWeight.w700,
       ),
+      headline4: TextStyle(
+        fontSize: 24,
+        color: headline4Color,
+        fontFamily: 'Prompt',
+        fontWeight: FontWeight.w700,
+      ),
       bodyText1: TextStyle(
-        fontSize: 18,
+        fontSize: 24,
         color: bodyText1Color,
         fontFamily: 'Jost',
-        fontWeight: FontWeight.w400,
+        fontWeight: FontWeight.w500,
       ),
       bodyText2: TextStyle(
-        fontSize: 18,
+        fontSize: 20,
         color: bodyText2Color,
         fontFamily: 'Jost',
         fontWeight: FontWeight.w500,
@@ -65,34 +72,46 @@ TextTheme createTextTheme({
 
 /// Green theme
 final greenThemeData = ThemeData(
-  iconTheme: IconThemeData(color: black1),
+  iconTheme: IconThemeData(color: green1),
   primaryColor: green1,
   accentColor: green3,
   textTheme: createTextTheme(
-    headline1Color: green3,
+    headline1Color: green2,
     headline2Color: green2,
     headline3Color: white1,
+    headline4Color: green3,
     bodyText1Color: black1,
-    bodyText2Color: green3,
+    bodyText2Color: white2,
   ),
-  buttonTheme: ButtonThemeData(
-    buttonColor: green3,
+  elevatedButtonTheme: ElevatedButtonThemeData(
+    style: ButtonStyle(
+      backgroundColor: MaterialStateProperty.all<Color>(green2),
+      padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+        EdgeInsets.symmetric(vertical: space * 0.7, horizontal: space * 1.5),
+      ),
+    ),
   ),
 );
 
 /// Purple theme
 final purpleThemeData = ThemeData(
-  iconTheme: IconThemeData(color: Color(0xFFDBE1E8)),
+  iconTheme: IconThemeData(color: white1),
   primaryColor: purple1,
   accentColor: purple2,
   textTheme: createTextTheme(
     headline1Color: white1,
     headline2Color: black2,
     headline3Color: white1,
-    bodyText1Color: white1,
-    bodyText2Color: white2,
+    headline4Color: black2,
+    bodyText1Color: black2,
+    bodyText2Color: white1,
   ),
-  buttonTheme: ButtonThemeData(
-    buttonColor: yellow1,
+  elevatedButtonTheme: ElevatedButtonThemeData(
+    style: ButtonStyle(
+      backgroundColor: MaterialStateProperty.all<Color>(yellow1),
+      padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+        EdgeInsets.symmetric(vertical: space * 0.7, horizontal: space * 1.5),
+      ),
+    ),
   ),
 );
