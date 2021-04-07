@@ -1,4 +1,4 @@
-# random_people_fluttering
+# random-people-fluttering
 
 In this project [Random User Generator API](https://randomuser.me/) is used to get users data which is displayed using the `Flutter` frontend UI. The app has `2 themes (Green and Purple)` and they can be change just by clicking a button.
 
