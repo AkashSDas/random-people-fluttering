@@ -1,16 +1,43 @@
 # random_people_fluttering
 
-A new Flutter project.
+In this project [Random User Generator API](https://randomuser.me/) is used to get users data which is displayed using the `Flutter` frontend UI. The app has `2 themes (Green and Purple)` and they can be change just by clicking a button.
 
-## Getting Started
+## Table of contents
 
-This project is a starting point for a Flutter application.
+- [Getting started](#getting-started)
+- [Figma designs](#figma-designs)
+- [App images](#app-images)
+- [License](#license)
 
-A few resources to get you started if this is your first Flutter project:
+## Getting started
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+**Clone the repo**
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+```bash
+git clone https://github.com/AkashSDas/random-people-fluttering
+```
+
+**Get inside the project dir and install dependencies**
+
+```bash
+cd random-people-fluttering
+flutter pub get
+```
+
+**Open a simulator or connect a device and after that execute the below command to run the flutter app**
+
+```bash
+flutter run
+```
+
+## Figma designs
+
+The `designs` for this app and output art design were made using `Figma` and the `.fig` files are in [design/ dir](./design).
+
+## App images
+
+![](./docs/imgs/output-1.png)
+
+## License
+
+[MIT](./LICENSE)
